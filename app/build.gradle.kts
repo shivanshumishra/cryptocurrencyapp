@@ -73,6 +73,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
     implementation ("androidx.navigation:navigation-compose:2.4.0-alpha08")
     implementation ("com.google.accompanist:accompanist-flowlayout:0.17.0")
+    implementation ("com.google.accompanist:accompanist-swiperefresh:0.27.0")
 
     // Coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
@@ -83,9 +84,8 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
 
     //Dagger - Hilt
-    implementation ("com.google.dagger:hilt-android:2.41")
-    implementation ("com.google.dagger:hilt-android:2.41")
-    kapt ("com.google.dagger:hilt-android-compiler:2.41")
+    implementation ("com.google.dagger:hilt-android:2.40")
+    kapt ("com.google.dagger:hilt-android-compiler:2.40")
     kapt ("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 
