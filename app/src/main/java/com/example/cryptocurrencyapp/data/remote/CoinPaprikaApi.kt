@@ -10,8 +10,8 @@ interface CoinPaprikaApi {
     @GET("/v1/coins")
     suspend fun getCoins() : List<CoinDto>
 
-    @GET("v1/coins/{coindId}")
+    @GET("v1/coins/{coinId}")
     suspend fun getCoinById(
-        @Path("coinId") coindId : String
+        @Path("coinId") coinId : String
     ) : CoinDetailDto
 }

@@ -55,9 +55,9 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.compose.ui:ui:")
     implementation ("androidx.compose.material:material:1.5.4")
     implementation ("androidx.compose.ui:ui-tooling-preview:1.5.4")
@@ -83,10 +83,10 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
 
     //Dagger - Hilt
-    implementation ("com.google.dagger:hilt-android:2.38.1")
-    kapt ("com.google.dagger:hilt-android-compiler:2.37")
-    implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation ("com.google.dagger:hilt-android:2.41")
+    implementation ("com.google.dagger:hilt-android:2.41")
+    kapt ("com.google.dagger:hilt-android-compiler:2.41")
+    kapt ("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 
     // Retrofit
