@@ -9,4 +9,12 @@ data class Coin(
     val name: String,
     val rank: Int,
     val symbol: String,
-)
+) {
+    fun doesMatchSearchQuery(query: String) : Boolean {
+        val matchingCombination = listOf(name, "${name.first()}")
+
+        return matchingCombination.any {
+            it.contains(query, ignoreCase = true)
+        }
+    }
+}

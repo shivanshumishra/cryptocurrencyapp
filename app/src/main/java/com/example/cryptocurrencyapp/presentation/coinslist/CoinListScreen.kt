@@ -1,6 +1,7 @@
 package com.example.cryptocurrencyapp.presentation.coinslist
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,7 +10,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -28,15 +32,32 @@ fun CoinListScreen(
 ) {
     val state = viewModel.state.value
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isLoading)
+
+    LaunchedEffect(key1 =  viewModel.searchText.collectAsState().value) {
+        viewModel.getCoins()
+        swipeRefreshState.isRefreshing = false
+    }
+
     Box(modifier = Modifier.fillMaxSize()){
         SwipeRefresh(state = swipeRefreshState, onRefresh = { viewModel.getCoins()}) {
-            LazyColumn(modifier = Modifier.fillMaxSize()){
-                items(state.coins) { coin ->
-                    CoinListItem(
-                        coin = coin,
-                        onItemClick = {
-                            navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
-                        })
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                TextField(value = viewModel.searchText.collectAsState().value,
+                    onValueChange = {
+                    viewModel.onSearchTextChange(it)
+                },
+                    placeholder = {"Enter search text"}, modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp))
+                LazyColumn(modifier = Modifier.fillMaxSize()){
+                    items(state.coins) { coin ->
+                        CoinListItem(
+                            coin = coin,
+                            onItemClick = {
+                                navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
+                            })
+                    }
                 }
             }
         }
