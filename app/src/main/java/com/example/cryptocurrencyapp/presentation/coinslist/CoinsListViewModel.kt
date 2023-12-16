@@ -31,7 +31,7 @@ class CoinsListViewModel @Inject constructor(
     val isSearching = _isSearching.asStateFlow()
 
     init {
-        getCoins()
+        getCoins(false)
     }
 
     fun onSearchTextChange(text : String) {
@@ -39,10 +39,12 @@ class CoinsListViewModel @Inject constructor(
         Log.i("Search", _searchText.value)
     }
 
-    fun getCoins()  {
+    fun getCoins(isSearch : Boolean)  {
+        _isSearching.value = isSearch
         getCoinsUsecase().onEach { result ->
             when(result){
                 is Resource.Success -> {
+                    _isSearching.value = false
                     var filteredList : MutableList<Coin> = mutableListOf()
                     if(searchText.value.isEmpty()){
                         result.data?.let { filteredList.addAll(it) }
@@ -58,6 +60,7 @@ class CoinsListViewModel @Inject constructor(
                     )
                 }
                 is Resource.Error -> {
+                    _isSearching.value = false
                     _state.value = CoinListState(error = result.message ?: "Unexpected error occurred")
                 }
                 is Resource.Loading -> {

@@ -31,15 +31,14 @@ fun CoinListScreen(
     viewModel: CoinsListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.isLoading)
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = viewModel.isSearching.collectAsState().value)
 
     LaunchedEffect(key1 =  viewModel.searchText.collectAsState().value) {
-        viewModel.getCoins()
-        swipeRefreshState.isRefreshing = false
+        viewModel.getCoins(true)
     }
 
     Box(modifier = Modifier.fillMaxSize()){
-        SwipeRefresh(state = swipeRefreshState, onRefresh = { viewModel.getCoins()}) {
+        SwipeRefresh(state = swipeRefreshState, onRefresh = { viewModel.getCoins(false)}) {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -47,7 +46,9 @@ fun CoinListScreen(
                     onValueChange = {
                     viewModel.onSearchTextChange(it)
                 },
-                    placeholder = {"Enter search text"}, modifier = Modifier
+                    placeholder = {
+                                  Text(text = "Enter search text")
+                    }, modifier = Modifier
                         .fillMaxWidth()
                         .padding(12.dp))
                 LazyColumn(modifier = Modifier.fillMaxSize()){
